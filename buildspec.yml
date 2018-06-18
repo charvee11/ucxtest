@@ -5,10 +5,9 @@ variables:
 BRANCH_NAME: "develop"
 MAJOR_VERSION: "1"
 MINOR_VERSION: "0"
-GIT_REPO: "https://github.com/charvee11/ucxtest.git"
+
 parameter-store:
-GIT_USER: "charvee11"
-GIT_PASS: "Sarita@1964"
+
 phases:
 install:
 commands:
