@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+variables:
+BRANCH_NAME: “develop”
+MAJOR_VERSION: “1”
+MINOR_VERSION: “0”
+GIT_REPO: “https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ucxtest-javaproject"
+parameter-store:
+GIT_USER: “charvee.punia-at-508190726896”
+GIT_PASS: “eGsLwMEIR5IoqI5qxukEZZ5DAbynDV3CKNKFQo4bktg=”
+phases:
+install:
+commands:
+      - apt-get update -y && apt-get install -y git
+pre_build:
+commands:
+      - echo “machine git-codecommit.us-east-1.amazonaws.com” >> ~/.netrc
+      - echo “login $GIT_USER” >> ~/.netrc
+      - echo “password $GIT_PASS” >> ~/.netrc
+      - git clone -b $BRANCH_NAME $GIT_REPO
+build:
+commands:      
+      - mvn clean package
+      - cd ucxtest-javaproject
+      - bash git_taging.sh
+post_build:
+commands:
+      - echo Build completed on `date`
+artifacts:
+files:
+    - '*'
+discard-paths: yes
